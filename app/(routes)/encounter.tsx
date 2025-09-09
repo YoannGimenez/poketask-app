@@ -35,7 +35,6 @@ export default function EncounterScreen() {
 
   const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
-  // Réinitialiser toutes les données quand on quitte
   const resetData = () => {
     setPokemon(null);
     setPokeballs([]);
@@ -44,7 +43,6 @@ export default function EncounterScreen() {
     setIsLoading(true);
   };
 
-  // Charger les données de l'encounter
   const fetchEncounterData = async () => {
     try {
       setIsLoading(true);
@@ -55,7 +53,6 @@ export default function EncounterScreen() {
         return;
       }
 
-      // Appel API pour l'encounter (doit idéalement renvoyer pokemon + pokeballs)
       const encounterResponse = await fetch(`${API_URL}/location/${locationId}/encounter`, {
         method: 'GET',
         headers: {
@@ -87,28 +84,6 @@ export default function EncounterScreen() {
           })) as PokeballItem[];
           setPokeballs(balls);
           setSelectedPokeball(balls.find(pb => (pb.quantity ?? 0) > 0)?.id || balls[0]?.id || null);
-        } else {
-          // Fallback: récupérer l'inventaire des pokéballs
-          try {
-            const resBalls = await fetch(`${API_URL}/item/my-pokeballs`, {
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-              },
-            });
-            if (resBalls.ok) {
-              const dataBalls = await resBalls.json();
-              const list = (dataBalls.userPokeballs ?? dataBalls).map((b: any) => ({
-                id: String(b.id),
-                name: b.name,
-                spriteUrl: b.spriteUrl,
-                quantity: b.quantity ?? 0,
-                captureBonusRate: b.captureBonusRate ?? b.bonus ?? b.bonusCaptureRate ?? 0,
-              })) as PokeballItem[];
-              setPokeballs(list);
-              setSelectedPokeball(list.find(pb => (pb.quantity ?? 0) > 0)?.id || list[0]?.id || null);
-            }
-          } catch {}
         }
       } else {
         Alert.alert('Erreur', 'Impossible de générer une rencontre');
@@ -125,7 +100,6 @@ export default function EncounterScreen() {
     }
   };
 
-  // Action de capture
   const handleCapture = async () => {
     if (!pokemon || !selectedPokeball) {
       Alert.alert('Erreur', 'Données manquantes pour la capture');
@@ -164,14 +138,12 @@ export default function EncounterScreen() {
     }
   };
 
-  // Action de fuite
   const handleFlee = () => {
     resetData();
     toastFlee('Vous avez pris la fuite !');
     router.replace('/(app)/home');
   };
 
-  // Calcul du taux de capture affiché
   useEffect(() => {
     if (!pokemon) return;
     const base = typeof pokemon.catchRate === 'number' ? pokemon.catchRate : 0;
@@ -181,11 +153,9 @@ export default function EncounterScreen() {
     setCatchRatePercent(pct);
   }, [pokemon, pokeballs, selectedPokeball]);
 
-  // Bloquer le bouton retour système
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        // Empêche le retour avec le bouton système
         return true;
       };
 
@@ -203,14 +173,13 @@ export default function EncounterScreen() {
       router.replace('/(app)/home');
     }
 
-    // Nettoyer les données quand on quitte l'écran
     return () => {
       resetData();
     };
   }, [locationId]);
 
   if (isLoading) {
-    return null; // Ou un loader si vous en avez un
+    return null;
   }
 
   if (!pokemon) {

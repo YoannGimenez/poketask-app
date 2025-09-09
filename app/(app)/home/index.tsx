@@ -79,7 +79,7 @@ export default function HomeScreen() {
       case 'CAVE':
         return require('@/assets/images/background_interior.png');
       default:
-        return require('@/assets/images/background_route_bis.png');
+        return require('@/assets/images/background_route_testbig.png');
     }
   };
 
