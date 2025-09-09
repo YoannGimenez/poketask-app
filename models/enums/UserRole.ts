@@ -1,0 +1,6 @@
+export enum UserRole {
+    USER = 'USER',
+    ADMIN = 'ADMIN',
+    PENDING_CONFIRMATION = 'PENDING_CONFIRMATION',
+    BANNED = 'BANNED'
+}
