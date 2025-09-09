@@ -90,9 +90,7 @@ export default function HomeScreen() {
             onClose={() => setNeedsStarter(false)}
         />
 
-        {/* Header amélioré avec niveau et monnaie */}
         <View style={styles.header}>
-          {/* Section niveau avec design amélioré */}
           <View style={styles.levelSection}>
             <View style={styles.levelCard}>
               <View style={styles.levelHeader}>
@@ -115,7 +113,6 @@ export default function HomeScreen() {
             </View>
           </View>
 
-          {/* Section monnaie */}
           <View style={styles.currencySection}>
             <View style={styles.currencyCard}>
               <View style={styles.currencyIconContainer}>
@@ -133,7 +130,6 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {/* Carte de dresseur améliorée */}
         <View style={styles.trainerCardWrapper}>
           <TrainerCard
               username={user?.username || 'Dresseur'}
@@ -142,7 +138,6 @@ export default function HomeScreen() {
           />
         </View>
 
-        {/* Section Exploration */}
         <View style={styles.explorationContainer}>
           <ImageBackground
               source={require('@/assets/images/background_explore.png')}
