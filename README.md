@@ -1,50 +1,76 @@
-# Welcome to your Expo app 👋
+# PokéTask App 
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Prérequis
 
-## Get started
+### 1. Node.js
+- **Version requise** : Node.js 18.x ou supérieur
+- **Installation** :
+    - Téléchargez depuis [nodejs.org](https://nodejs.org/)
+    - Ou utilisez un gestionnaire de versions comme `nvm` :
+      ```bash
+      # Installation de nvm (Linux/Mac)
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+      
+      # Installation de Node.js 18
+      nvm install 18
+      nvm use 18
+      ```
 
-1. Install dependencies
+### 2. npm ou yarn
+- **npm** : Inclus avec Node.js
+- **yarn** (optionnel) :
+  ```bash
+  npm install -g yarn
+  ```
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+### 3. Expo CLI
 ```bash
-npm run reset-project
+npm install -g @expo/cli
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 5. Backend API
+- Un serveur backend doit être en cours d'exécution
+- L'API doit être accessible via l'URL configurée dans les variables d'environnement
 
-## Learn more
+## ��️ Installation
 
-To learn more about developing your project with Expo, look at the following resources:
+### 1. Cloner le repository
+```bash
+git clone <url-du-repository>
+cd poketask-app
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 2. Installer les dépendances
+```bash
+npm install
+# ou
+yarn install
+```
 
-## Join the community
+### 3. Configuration des variables d'environnement
+Créez un fichier `.env` à la racine du projet :
 
-Join our community of developers creating universal apps.
+```env
+EXPO_PUBLIC_API_URL={IP}:3000/api
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Remplacez l'IP de cette manière
+
+```bash
+#MACOS
+ipconfig getifaddr en0
+#LINUX
+hostname -I | awk '{print $1}'
+# ou
+ip addr show | grep "inet " | grep -v 127.0.0.1
+#WINDOWS (Powershell)
+Get-NetIPAddress -AddressFamily IPv4 | Select-Object IPAddress
+```
+
+### 4. Démarrer l'application
+
+Il est nécessaire de posséder l'application Expo Go, elle est gratuite et disponible sur les stores
+
+```bash
+expo start
+```
